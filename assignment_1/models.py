@@ -18,6 +18,7 @@ class Submenu(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
     menu_id = Column(Integer, ForeignKey('menus.id'))
+    menu = relationship('Menu', back_populates='submenus')
     dishes = relationship('Dish', back_populates='submenu')
 
 
@@ -27,5 +28,6 @@ class Dish(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
     submenu_id = Column(Integer, ForeignKey('submenus.id'))
-    price = Column(Float, precision=2)
+    submenu = relationship('Submenu', back_populates='dishes')
+    # price = Column(Float)
     description = Column(String)

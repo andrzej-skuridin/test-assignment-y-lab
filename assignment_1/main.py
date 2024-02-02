@@ -10,8 +10,12 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+@app.get('/')
+async def root():
+    return {'message': 'Hello!'}
 
-# Dependency
+
+# # Dependency
 def get_db():
     db = SessionLocal()
     try:
@@ -44,3 +48,12 @@ def get_submenu(submenu_id: int, db: Session = Depends(get_db)):
     if db_submenu is None:
         raise HTTPException(status_code=404, detail='Submenu not found')
     return db_submenu
+
+
+@app.post('/menus/{menu_id}/submenus/')
+def create_submenu_for_menu(
+    menu_id: int, 
+    submenu: schemas.CreateSubmenu, 
+    db: Session = Depends(get_db)
+    ):
+    return crud.create_submenu_for_menu(db=db, menu_id=menu_id, submenu=submenu)
