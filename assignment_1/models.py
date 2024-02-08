@@ -9,7 +9,7 @@ class Menu(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
-    submenus = relationship('Submenu', back_populates='menu')
+    submenus = relationship('Submenu', back_populates='menu', cascade='all, delete')
 
 
 class Submenu(Base):
@@ -19,7 +19,7 @@ class Submenu(Base):
     title = Column(String)
     menu_id = Column(Integer, ForeignKey('menus.id'))
     menu = relationship('Menu', back_populates='submenus')
-    dishes = relationship('Dish', back_populates='submenu')
+    dishes = relationship('Dish', back_populates='submenu', cascade='all, delete')
 
 
 class Dish(Base):

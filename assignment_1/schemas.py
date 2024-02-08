@@ -14,6 +14,15 @@ class Dish(BaseModel):
         orm_mode = True
 
 
+class CreateDish(BaseModel):
+    id: int
+    title: str
+    description: str
+
+    class Config:
+        orm_mode = True
+
+
 class Submenu(BaseModel):
     id: int
     title: str
@@ -37,6 +46,14 @@ class Menu(BaseModel):
     id: int
     title: str
     submenus: list[Submenu] = []
+
+    class Config:
+        orm_mode = True
+
+
+class CreateMenu(BaseModel):
+    id: int
+    title: str
 
     class Config:
         orm_mode = True
